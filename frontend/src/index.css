@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-black: #000000;
+  --background-white: #FFFFFF;
+  --accent-gray: #666666;
+  --light-gray: #F5F5F5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-white);
+  color: var(--primary-black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom utility classes for luxury theme */
+.btn-luxury {
+  background-color: var(--primary-black);
+  color: var(--background-white);
+  border: 1px solid var(--primary-black);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-luxury:hover {
+  background-color: var(--accent-gray);
+  border-color: var(--accent-gray);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.card-luxury {
+  background: var(--background-white);
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-luxury:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.text-luxury-gold {
+  color: var(--primary-black);
+}
+
+.bg-luxury-black {
+  background-color: var(--primary-black);
+}
+
+.bg-luxury-ivory {
+  background-color: var(--background-white);
+}

@@ -1,0 +1,84 @@
+/* src/pages/ProductPage.css */
+.product-page {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--primary-black);
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-description {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  color: var(--accent-gray);
+}
+
+.product-price {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--primary-black);
+  font-weight: bold;
+}
+
+.size-label {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: var(--primary-black);
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.button-container .btn {
+  background-color: var(--primary-black);
+  color: var(--background-white);
+  border: 1px solid var(--primary-black);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.button-container .btn:hover {
+  background-color: var(--accent-gray);
+}
+
+.button-container .share-btn {
+  background-color: var(--accent-gray);
+}
+
+.button-container .share-btn:hover {
+  background-color: var(--primary-black);
+}
+
+.mt-5 {
+  margin-top: 40px; /* Increase top margin for reviews section */
+}
+
+/* Reviews Section Styles */
+.reviews-section {
+  background-color: #fff; /* White background for reviews */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Inner padding */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-title {
+    font-size: 2rem; /* Responsive title size */
+  }
+  .product-price {
+    font-size: 1.5rem; /* Responsive price size */
+  }
+}

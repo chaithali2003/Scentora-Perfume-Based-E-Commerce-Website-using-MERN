@@ -1,0 +1,58 @@
+/* src/components/ReviewsSection.css */
+
+.reviews-section {
+    background-color: var(--background-white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: var(--primary-black);
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+}
+
+h4 {
+    color: var(--accent-gray);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    background-color: white;
+    color: var(--primary-black);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.list-group-item strong {
+    color: var(--primary-black);
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    background-color: white;
+    color: var(--primary-black);
+    border: 1px solid var(--accent-gray);
+}
+
+.form-control:focus {
+    border-color: var(--primary-black);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.btn-success {
+    background-color: var(--primary-black);
+    color: var(--background-white);
+    border: 1px solid var(--primary-black);
+    border-radius: 8px;
+}
+
+.btn-success:hover {
+    background-color: var(--accent-gray);
+}
