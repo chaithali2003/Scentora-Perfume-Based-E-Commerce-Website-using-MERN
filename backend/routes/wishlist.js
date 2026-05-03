@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Wishlist = require('../models/Wishlist');
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 
 // Get user's wishlist
 router.get('/', auth, async (req, res) => {

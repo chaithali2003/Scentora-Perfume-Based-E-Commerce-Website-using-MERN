@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
 import { useAuth } from '../contexts/AuthContext';
-import { Cart, ChevronDown } from 'react-bootstrap-icons';
+import { Cart, Heart, ChevronDown } from 'react-bootstrap-icons';
 import { motion } from 'framer-motion';
 import './Navbar.css';
 
 function NavigationBar() {
   const { getItemCount } = useCart();
+  const { wishlist } = useWishlist();
   const { user, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -97,6 +99,9 @@ function NavigationBar() {
                     <LinkContainer to="/profile">
                       <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</div>
                     </LinkContainer>
+                    <LinkContainer to="/wishlist">
+                      <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Wishlist</div>
+                    </LinkContainer>
                     <LinkContainer to="/orders">
                       <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Orders</div>
                     </LinkContainer>
@@ -124,24 +129,45 @@ function NavigationBar() {
             )}
           </div>
 
-          <LinkContainer to="/cart">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="relative cursor-pointer"
-            >
-              <Cart size={24} className="text-white hover:text-gray-300 transition-colors duration-300" />
-              {getItemCount() > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold"
-                >
-                  {getItemCount()}
-                </motion.span>
-              )}
-            </motion.div>
-          </LinkContainer>
+          <div className="flex gap-4">
+            <LinkContainer to="/wishlist">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative cursor-pointer"
+              >
+                <Heart size={24} className="text-white hover:text-gray-300 transition-colors duration-300" />
+                {wishlist.length > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold"
+                  >
+                    {wishlist.length}
+                  </motion.span>
+                )}
+              </motion.div>
+            </LinkContainer>
+
+            <LinkContainer to="/cart">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative cursor-pointer"
+              >
+                <Cart size={24} className="text-white hover:text-gray-300 transition-colors duration-300" />
+                {getItemCount() > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold"
+                  >
+                    {getItemCount()}
+                  </motion.span>
+                )}
+              </motion.div>
+            </LinkContainer>
+          </div>
         </div>
       </Container>
     </motion.nav>

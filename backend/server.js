@@ -10,6 +10,7 @@ const User = require('./models/User');
 const productRoutes = require('./routes/products');
 const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/orders');
+const wishlistRoutes = require('./routes/wishlist');
 
 dotenv.config({ path: path.join(__dirname, '.env') });
 
@@ -51,6 +52,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/wishlist', wishlistRoutes);
 
 // Contact route
 app.post('/api/contact', (req, res) => {

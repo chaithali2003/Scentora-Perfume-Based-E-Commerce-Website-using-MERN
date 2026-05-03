@@ -3,13 +3,18 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import './ProductCard.css';
 import { convertDriveLink, noImagePlaceholder } from '../utils/imageUtils';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { token } = useAuth();
   const [selectedSize, setSelectedSize] = useState(product.availableSizes && product.availableSizes.length > 0 ? product.availableSizes[0] : '');
 
   const imageArray = Array.isArray(product.images)
@@ -25,6 +30,7 @@ function ProductCard({ product }) {
   // Calculate price based on size
   const getSizeMultiplier = (size) => {
     if (size === '100ml') return 1.75;
+    if (size === '200ml') return 2.5;
     return 1;
   };
 
@@ -41,6 +47,19 @@ function ProductCard({ product }) {
       alert('Added to cart!');
     } else {
       alert('Please select a size');
+    }
+  };
+
+  const handleWishlist = (e) => {
+    e.stopPropagation();
+    if (!token) {
+      alert('Please login to add to wishlist');
+      return;
+    }
+    if (isInWishlist(product._id)) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist(product._id);
     }
   };
 
@@ -84,6 +103,12 @@ function ProductCard({ product }) {
         <p className="text-gray-600 mb-4 line-clamp-2">{product.shortDescription}</p>
         <div className="flex items-center justify-between mb-4">
           <span className="text-2xl font-bold text-black">₹{(priceForSize * 83).toFixed(2)}</span>
+          {product.rating && (
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-400">★</span>
+              <span className="text-gray-600 text-sm">{product.rating.toFixed(1)}</span>
+            </div>
+          )}
         </div>
 
         {/* Display Available Sizes as Badges */}
@@ -115,14 +140,24 @@ function ProductCard({ product }) {
             ))}
           </Form.Select>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleAddToCart}
-            className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            Add to Cart
-          </motion.button>
+          <div className="flex gap-2">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleAddToCart}
+              className="flex-1 bg-black hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Add to Cart
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleWishlist}
+              className="bg-gray-200 hover:bg-red-100 text-black hover:text-red-600 font-semibold py-3 px-4 rounded-lg transition-all duration-300"
+            >
+              {isInWishlist(product._id) ? <HeartFill size={20} /> : <Heart size={20} />}
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.div>

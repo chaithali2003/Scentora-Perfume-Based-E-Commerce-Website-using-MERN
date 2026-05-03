@@ -12,7 +12,9 @@ import AddProduct from './pages/AddProduct';
 import ProductListing from './pages/ProductListing';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
+import Wishlist from './pages/Wishlist';
 import { CartProvider } from './contexts/CartContext';
+import { WishlistProvider } from './contexts/WishlistContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -27,21 +29,24 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
-            <Route path="/all-perfumes" element={<PrivateRoute><ProductListing /></PrivateRoute>} />
-            <Route path="/products/:id" element={<PrivateRoute><ProductPage /></PrivateRoute>} />
-            <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
-            <Route path="/contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
-            <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/add-product" element={<PrivateRoute roles={[ 'seller' ]}><AddProduct /></PrivateRoute>} />
-            <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
-            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          </Routes>
-        </Router>
+        <WishlistProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+              <Route path="/all-perfumes" element={<PrivateRoute><ProductListing /></PrivateRoute>} />
+              <Route path="/products/:id" element={<PrivateRoute><ProductPage /></PrivateRoute>} />
+              <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
+              <Route path="/contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
+              <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+              <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/add-product" element={<PrivateRoute roles={[ 'seller' ]}><AddProduct /></PrivateRoute>} />
+              <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
+              <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            </Routes>
+          </Router>
+        </WishlistProvider>
       </CartProvider>
     </AuthProvider>
   );
