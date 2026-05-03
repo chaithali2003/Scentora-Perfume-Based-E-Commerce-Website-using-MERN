@@ -21,6 +21,7 @@ function Cart() {
     country: ''
   });
   const [paymentInfo, setPaymentInfo] = useState({
+    method: 'creditCard',
     cardNumber: '',
     expiry: '',
     cvv: ''
@@ -40,8 +41,8 @@ function Cart() {
       return;
     }
 
-    if (!paymentInfo.cardNumber || !paymentInfo.expiry || !paymentInfo.cvv) {
-      setOrderError('Please fill in your payment details.');
+    if (paymentInfo.method === 'creditCard' && (!paymentInfo.cardNumber || !paymentInfo.expiry || !paymentInfo.cvv)) {
+      setOrderError('Please fill in your card details.');
       return;
     }
 
@@ -63,6 +64,7 @@ function Cart() {
         size: item.size
       })),
       shippingAddress,
+      paymentMethod: paymentInfo.method,
       shipping: 5,
       tax: Math.round(getTotal() * 0.08 * 100) / 100
     };
@@ -248,32 +250,129 @@ function Cart() {
               </div>
 
               <div className="space-y-4 mb-6">
-                <h4 className="font-semibold text-gray-700">Payment Details</h4>
-                <p className="text-sm text-gray-500">This is a simulated payment flow for UI purposes only. No real transaction will be processed.</p>
-                <input
-                  type="text"
-                  placeholder="Card Number"
-                  value={paymentInfo.cardNumber}
-                  onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                />
-                <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
-                    placeholder="Expiry (MM/YY)"
-                    value={paymentInfo.expiry}
-                    onChange={(e) => setPaymentInfo({ ...paymentInfo, expiry: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                  />
-                  <input
-                    type="password"
-                    placeholder="CVV"
-                    value={paymentInfo.cvv}
-                    onChange={(e) => setPaymentInfo({ ...paymentInfo, cvv: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                  />
+                <h4 className="font-semibold text-gray-700">Payment Method</h4>
+                <div className="space-y-3">
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="creditCard"
+                      checked={paymentInfo.method === 'creditCard'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">Credit Card</div>
+                      <div className="text-sm text-gray-600">Visa, Mastercard, AmEx</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="debitCard"
+                      checked={paymentInfo.method === 'debitCard'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">Debit Card</div>
+                      <div className="text-sm text-gray-600">Bank Debit Card</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="upi"
+                      checked={paymentInfo.method === 'upi'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">UPI</div>
+                      <div className="text-sm text-gray-600">Google Pay, PhonePe, PayTM</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="netbanking"
+                      checked={paymentInfo.method === 'netbanking'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">Net Banking</div>
+                      <div className="text-sm text-gray-600">All major banks supported</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="paypal"
+                      checked={paymentInfo.method === 'paypal'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">PayPal</div>
+                      <div className="text-sm text-gray-600">Fast and secure payment</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="wallet"
+                      checked={paymentInfo.method === 'wallet'}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
+                      className="w-4 h-4 mr-3"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-800">Digital Wallet</div>
+                      <div className="text-sm text-gray-600">Apple Pay, Samsung Pay</div>
+                    </div>
+                  </label>
                 </div>
               </div>
+
+              {paymentInfo.method === 'creditCard' && (
+                <div className="space-y-4 mb-6">
+                  <h4 className="font-semibold text-gray-700">Card Details</h4>
+                  <p className="text-sm text-gray-500">This is a simulated payment flow for UI purposes only. No real transaction will be processed.</p>
+                  <input
+                    type="text"
+                    placeholder="Card Number"
+                    value={paymentInfo.cardNumber}
+                    onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Expiry (MM/YY)"
+                      value={paymentInfo.expiry}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, expiry: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                    <input
+                      type="password"
+                      placeholder="CVV"
+                      value={paymentInfo.cvv}
+                      onChange={(e) => setPaymentInfo({ ...paymentInfo, cvv: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                  </div>
+                </div>
+              )}
 
               {orderError && <div className="text-sm text-red-700 bg-red-100 p-3 rounded">{orderError}</div>}
               {orderSuccess && <div className="text-sm text-green-700 bg-green-100 p-3 rounded">{orderSuccess}</div>}

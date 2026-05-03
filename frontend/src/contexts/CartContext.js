@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 // Helper function to calculate size multiplier
 const getSizeMultiplier = (size) => {
   if (size === '100ml') return 1.75;
+  if (size === '200ml') return 2.5;
   return 1;
 };
 
